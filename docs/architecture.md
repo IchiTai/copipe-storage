@@ -15,7 +15,7 @@ C4Context
   System_Ext(disk, "ディスク", "~/Library/Application Support")
   Rel(user, apps, "⌘C でコピーする")
   Rel(apps, pb, "内容を書く（秘匿・一時の印を付けることがある）")
-  Rel(user, app, "⇧⌘V / クリックで呼び出し、クリップを選ぶ")
+  Rel(user, app, "⌥C / クリックで呼び出し、クリップを選ぶ")
   Rel(app, pb, "変化を見て全形式を取り込む／書き戻す")
   Rel(app, apps, "⌘V を送る (CGEvent)")
   Rel(app, disk, "履歴を保存する")
