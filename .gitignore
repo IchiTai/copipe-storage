@@ -1,0 +1,11 @@
+.build/
+build/
+.swiftpm/
+.index-build/
+*.xcodeproj
+*.xcworkspace
+.DS_Store
+*.dSYM
+!CLAUDE.md
+!CONTEXT.md
+!docs/adr/
