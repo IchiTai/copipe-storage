@@ -13,6 +13,8 @@ struct ClipRowView: View {
     let isSelected: Bool
     let onCopy: () -> Void
 
+    @State private var isHovered = false
+
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             if let thumbnail {
@@ -47,9 +49,16 @@ struct ClipRowView: View {
         .padding(8)
         .background(
             RoundedRectangle(cornerRadius: 6)
-                .fill(isSelected ? Color.accentColor.opacity(0.22) : Color.clear)
+                .fill(backgroundColor)
         )
         .contentShape(Rectangle())
+        .onHover { isHovered = $0 }
+    }
+
+    private var backgroundColor: Color {
+        if isSelected { return Color.accentColor.opacity(0.22) }
+        if isHovered { return Color.primary.opacity(0.07) }
+        return .clear
     }
 }
 
@@ -61,7 +70,7 @@ struct CopyButton: View {
             Text(L10n.string("panel.copy"))
         }
         .buttonStyle(.bordered)
-        .controlSize(.small)
+        .controlSize(.large)
         .help(L10n.string("panel.copy"))
     }
 }

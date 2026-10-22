@@ -19,11 +19,15 @@ struct PanelRootView: View {
                     model.openMenu()
                 } label: {
                     Image(systemName: "gearshape")
+                        .font(.system(size: 22))
+                        .frame(width: 36, height: 36)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.borderless)
                 .accessibilityLabel(L10n.string("panel.menu"))
             }
-            .padding(12)
+            .padding(.horizontal, 12)
+            .padding(.vertical, 4)
             Divider()
             if model.filteredClips.isEmpty {
                 Spacer()
@@ -57,11 +61,41 @@ struct PanelRootView: View {
                     }
                 }
             }
+            Divider()
+            PanelFooterView()
         }
         .onAppear { filterFocused = true }
         .onChange(of: model.focusRequestCount) { _, _ in filterFocused = true }
         .onKeyPress(phases: .down) { press in
             KeyCommand.handle(press, model: model)
+        }
+    }
+}
+
+struct PanelFooterView: View {
+    var body: some View {
+        HStack(spacing: 14) {
+            hint("↑↓", labelKey: "panel.hint.select")
+            hint("⏎", labelKey: "panel.hint.paste")
+            hint("⇧⏎", labelKey: "panel.hint.plain")
+            hint("⌘⏎", labelKey: "panel.copy")
+            hint("⌘⌫", labelKey: "panel.hint.delete")
+            Spacer()
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 6)
+    }
+
+    private func hint(_ key: String, labelKey: String) -> some View {
+        HStack(spacing: 4) {
+            Text(key)
+                .font(.system(size: 11))
+                .padding(.horizontal, 5)
+                .padding(.vertical, 1)
+                .background(RoundedRectangle(cornerRadius: 4).fill(Color.primary.opacity(0.1)))
+            Text(L10n.string(labelKey))
+                .font(.system(size: 11))
+                .foregroundStyle(.secondary)
         }
     }
 }

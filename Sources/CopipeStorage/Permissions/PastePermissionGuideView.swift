@@ -51,6 +51,7 @@ struct PastePermissionGuideView: View {
                         .buttonStyle(.borderedProminent)
                 }
             }
+            .controlSize(.large)
         }
         .padding(16)
         .frame(width: 380)
