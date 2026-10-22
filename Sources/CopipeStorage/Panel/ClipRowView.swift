@@ -57,7 +57,7 @@ struct ClipRowView: View {
 
     private var backgroundColor: Color {
         if isSelected { return Color.accentColor.opacity(0.22) }
-        if isHovered { return Color.primary.opacity(0.07) }
+        if isHovered { return Color.primary.opacity(0.10) }
         return .clear
     }
 }

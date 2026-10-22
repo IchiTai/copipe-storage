@@ -60,9 +60,9 @@ struct PanelRootView: View {
                         if let id { proxy.scrollTo(id) }
                     }
                 }
+                Divider()
+                PanelFooterView()
             }
-            Divider()
-            PanelFooterView()
         }
         .onAppear { filterFocused = true }
         .onChange(of: model.focusRequestCount) { _, _ in filterFocused = true }
@@ -75,27 +75,22 @@ struct PanelRootView: View {
 struct PanelFooterView: View {
     var body: some View {
         HStack(spacing: 14) {
-            hint("↑↓", labelKey: "panel.hint.select")
-            hint("⏎", labelKey: "panel.hint.paste")
-            hint("⇧⏎", labelKey: "panel.hint.plain")
-            hint("⌘⏎", labelKey: "panel.copy")
-            hint("⌘⌫", labelKey: "panel.hint.delete")
+            ForEach(KeyCommand.hints, id: \.labelKey) { hint in
+                HStack(spacing: 4) {
+                    Text(hint.symbols)
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 1)
+                        .background(RoundedRectangle(cornerRadius: 4).fill(Color.primary.opacity(0.1)))
+                    Text(L10n.string(hint.labelKey))
+                        .foregroundStyle(.secondary)
+                }
+                .accessibilityElement(children: .combine)
+                .accessibilityLabel(hint.spokenLabel)
+            }
             Spacer()
         }
+        .font(.system(size: 11))
         .padding(.horizontal, 12)
         .padding(.vertical, 6)
-    }
-
-    private func hint(_ key: String, labelKey: String) -> some View {
-        HStack(spacing: 4) {
-            Text(key)
-                .font(.system(size: 11))
-                .padding(.horizontal, 5)
-                .padding(.vertical, 1)
-                .background(RoundedRectangle(cornerRadius: 4).fill(Color.primary.opacity(0.1)))
-            Text(L10n.string(labelKey))
-                .font(.system(size: 11))
-                .foregroundStyle(.secondary)
-        }
     }
 }
